@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=3.0,user-scalable=yes,viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>听见爸爸了 — 准爸爸睡前胎教故事</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{
+  background:#1a3558;
+  background-image:
+    radial-gradient(ellipse at 25% 5%,rgba(90,140,210,.14) 0%,transparent 55%),
+    radial-gradient(ellipse at 75% 95%,rgba(70,115,180,.10) 0%,transparent 50%);
+  color:#d8e4f0;
+  font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-weight:300;
+  line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:100%;
+  -webkit-tap-highlight-color:transparent;
+}
+/* ── App Shell ── */
+.app{max-width:480px;margin:0 auto;height:100%;position:relative;display:flex;flex-direction:column}
+.page{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:70px;display:none}
+.page.active{display:block}
+.page-content{padding:0 20px}
+
+/* ── Bottom Tab Bar ── */
+.tab-bar{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:480px;
+  background:rgba(15,36,64,.95);
+  border-top:1px solid rgba(160,195,235,.1);
+  display:flex;z-index:100;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.tab-bar.hidden{display:none}
+.tab-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:10px 0 8px;cursor:pointer;transition:all .2s;
+  color:rgba(216,228,240,.45);font-size:11px;letter-spacing:1px;
+  min-height:54px;
+}
+.tab-item .tab-icon{font-size:22px;margin-bottom:3px}
+.tab-item.active{color:#c8a86e}
+.tab-item:active{opacity:.7}
+
+/* ── Progress Bar ── */
+.progress-bar{
+  width:100%;height:6px;background:rgba(160,195,235,.12);border-radius:3px;overflow:hidden;
+}
+.progress-fill{
+  height:100%;background:linear-gradient(90deg,#c8a86e,#d4b87a);border-radius:3px;
+  transition:width .5s ease;
+}
+
+/* ── Today Page ── */
+.today-header{
+  text-align:center;padding:40px 0 20px;
+}
+.today-header .moon{font-size:48px;margin-bottom:16px}
+.today-header .brand{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:28px;font-weight:700;
+  color:#c8a86e;letter-spacing:6px;margin-bottom:8px;
+  text-shadow:0 0 20px rgba(200,168,110,.25);
+}
+.today-header .sub{font-size:13px;color:rgba(216,228,240,.5);letter-spacing:3px;margin-bottom:24px}
+.today-stats{
+  display:flex;justify-content:center;gap:30px;margin-bottom:16px;
+}
+.today-stat{text-align:center}
+.today-stat .num{font-size:28px;font-weight:700;color:#c8a86e}
+.today-stat .label{font-size:11px;color:rgba(216,228,240,.4);letter-spacing:1px}
+.today-progress{padding:0 40px;margin-bottom:8px}
+.today-count{text-align:center;font-size:13px;color:rgba(216,228,240,.45);margin-bottom:30px}
+
+/* Cards */
+.today-card{
+  background:rgba(140,180,230,.06);border:1px solid rgba(160,195,235,.12);
+  border-radius:16px;padding:22px 20px;margin-bottom:16px;
+}
+.today-card .tc-label{font-size:11px;color:rgba(200,168,110,.5);letter-spacing:2px;margin-bottom:10px}
+.today-card .tc-title{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:20px;font-weight:600;
+  color:#edf3fa;margin-bottom:6px;
+}
+.today-card .tc-meta{font-size:12px;color:rgba(216,228,240,.4);margin-bottom:16px}
+.today-card .tc-btn{
+  display:inline-block;
+  background:linear-gradient(135deg,rgba(200,168,110,.2),rgba(200,168,110,.1));
+  border:1px solid rgba(200,168,110,.3);
+  color:#c8a86e;font-size:15px;padding:12px 32px;border-radius:25px;
+  cursor:pointer;transition:all .2s;letter-spacing:2px;
+  min-height:44px;
+}
+.today-card .tc-btn:active{opacity:.7;transform:scale(.97)}
+.tomorrow-card{
+  background:rgba(140,180,230,.03);border:1px solid rgba(160,195,235,.08);
+  border-radius:12px;padding:16px 20px;
+}
+.tomorrow-card .tc-label{font-size:11px;color:rgba(216,228,240,.3);letter-spacing:2px;margin-bottom:6px}
+.tomorrow-card .tc-title{font-size:15px;color:rgba(200,168,110,.6);font-family:Songti SC,STSong,SimSun,serif}
+
+/* ── Catalog Page ── */
+.catalog-header{text-align:center;padding:30px 0 20px}
+.catalog-header h2{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:22px;color:#c8a86e;
+  letter-spacing:3px;margin-bottom:6px;
+}
+.catalog-header p{font-size:12px;color:rgba(216,228,240,.4);letter-spacing:2px}
+.phase-group{margin-bottom:24px}
+.phase-title{
+  font-size:13px;color:rgba(200,168,110,.6);letter-spacing:3px;
+  padding:12px 0 8px;border-bottom:1px solid rgba(160,195,235,.08);margin-bottom:4px;
+}
+.cat-item{
+  display:flex;align-items:center;padding:12px 8px;
+  border-bottom:1px solid rgba(160,195,235,.04);cursor:pointer;
+  transition:background .15s;border-radius:8px;
+}
+.cat-item:active{background:rgba(140,180,230,.06)}
+.cat-item .ci-check{
+  width:24px;height:24px;border-radius:50%;margin-right:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(160,195,235,.15);font-size:13px;color:transparent;
+}
+.cat-item .ci-check.done{
+  background:rgba(200,168,110,.15);border-color:rgba(200,168,110,.4);color:#c8a86e;
+}
+.cat-item .ci-check.today{
+  border-color:#c8a86e;background:rgba(200,168,110,.2);
+  box-shadow:0 0 8px rgba(200,168,110,.2);
+}
+.cat-item .ci-info{flex:1;min-width:0}
+.cat-item .ci-num{font-size:11px;color:rgba(200,168,110,.4);margin-right:8px}
+.cat-item .ci-name{font-size:15px;font-family:Songti SC,STSong,SimSun,serif;color:#d8e4f0}
+.cat-item .ci-right{text-align:right;flex-shrink:0;margin-left:8px}
+.cat-item .ci-week{font-size:11px;color:rgba(216,228,240,.35)}
+.cat-item .ci-lock{font-size:11px;color:rgba(216,228,240,.25);margin-top:2px}
+.cat-item.available .ci-name{color:#edf3fa}
+.cat-item.locked{opacity:.5}
+.cat-item.locked .ci-name{color:rgba(216,228,240,.4)}
+.cat-item.today-item{
+  background:rgba(200,168,110,.06);
+  border:1px solid rgba(200,168,110,.15);
+}
+
+/* ── Mine Page ── */
+.mine-header{text-align:center;padding:30px 0 20px}
+.mine-header .moon{font-size:40px;margin-bottom:10px}
+.mine-header h2{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:20px;color:#c8a86e;
+  letter-spacing:3px;margin-bottom:4px;
+}
+.mine-stats{
+  display:flex;justify-content:center;gap:40px;margin:20px 0;
+}
+.mine-stat{text-align:center}
+.mine-stat .num{font-size:32px;font-weight:700;color:#c8a86e}
+.mine-stat .label{font-size:11px;color:rgba(216,228,240,.4);letter-spacing:1px}
+.mine-progress{padding:0 30px;margin-bottom:20px}
+.mine-section{
+  background:rgba(140,180,230,.04);border:1px solid rgba(160,195,235,.08);
+  border-radius:12px;padding:16px 18px;margin-bottom:14px;
+}
+.mine-section .ms-title{font-size:13px;color:rgba(200,168,110,.6);letter-spacing:2px;margin-bottom:10px}
+.mine-section .ms-content{font-size:14px;color:rgba(216,228,240,.6)}
+.mine-section .ms-btn{
+  display:inline-block;margin-top:10px;
+  background:rgba(200,168,110,.1);border:1px solid rgba(200,168,110,.2);
+  color:#c8a86e;font-size:13px;padding:10px 24px;border-radius:20px;
+  cursor:pointer;letter-spacing:1px;min-height:44px;line-height:24px;
+}
+.mine-section .ms-btn:active{opacity:.7}
+.history-item{
+  display:flex;align-items:center;padding:8px 0;
+  border-bottom:1px solid rgba(160,195,235,.04);
+}
+.history-item .hi-check{color:#c8a86e;margin-right:10px;font-size:14px}
+.history-item .hi-title{font-size:13px;color:rgba(216,228,240,.6)}
+
+/* ── Reading Page ── */
+.read-page{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:#1a3558;
+  background-image:
+    radial-gradient(ellipse at 25% 5%,rgba(90,140,210,.14) 0%,transparent 55%),
+    radial-gradient(ellipse at 75% 95%,rgba(70,115,180,.10) 0%,transparent 50%);
+  z-index:200;display:none;flex-direction:column;
+}
+.read-page.active{display:flex}
+.read-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top,0px));
+  flex-shrink:0;
+}
+.read-back{
+  font-size:15px;color:rgba(216,228,240,.6);cursor:pointer;
+  padding:8px 0;letter-spacing:1px;min-width:60px;
+}
+.read-day-num{font-size:13px;color:rgba(200,168,110,.5);letter-spacing:2px}
+.read-body{
+  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:0 20px 120px;
+}
+.read-body .wrap{max-width:480px;margin:0 auto}
+
+/* Article styles (same as original) */
+.read-body .art-header{text-align:center;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid rgba(160,195,235,.12)}
+.read-body .art-moon{font-size:40px;margin-bottom:14px;display:block}
+.read-body .art-brand{font-family:Songti SC,STSong,SimSun,serif;font-size:15px;color:#edf3fa;letter-spacing:4px;margin-bottom:6px}
+.read-body .art-sub{font-size:13px;color:rgba(190,160,110,.6);letter-spacing:2px}
+.read-body .day-card{
+  background:rgba(140,180,230,.06);border:1px solid rgba(160,195,235,.12);border-radius:14px;
+  padding:20px 22px;margin-bottom:36px;display:flex;justify-content:space-between;align-items:center;
+}
+.read-body .dc-left .dc-label{font-size:12px;color:rgba(216,228,240,.4);letter-spacing:1px;margin-bottom:4px}
+.read-body .dc-left .dc-title{font-family:Songti SC,STSong,SimSun,serif;font-size:20px;font-weight:600;color:#c8a86e}
+.read-body .dc-right{text-align:right}
+.read-body .dc-right .dc-tag{
+  display:inline-block;background:rgba(200,168,110,.12);color:rgba(200,168,110,.75);
+  font-size:12px;padding:4px 14px;border-radius:20px;letter-spacing:1px;margin-bottom:4px;
+}
+.read-body .dc-right .dc-time{font-size:12px;color:rgba(216,228,240,.35)}
+.read-body .sec-say{font-size:12px;color:rgba(190,160,110,.5);letter-spacing:3px;margin-bottom:18px}
+.read-body .opening{padding-left:18px;border-left:2px solid rgba(160,195,235,.18);margin-bottom:36px}
+.read-body .opening p{font-size:16px;color:rgba(216,228,240,.75);margin-bottom:14px;line-height:2}
+.read-body .dot-sep{text-align:center;margin:30px 0;color:rgba(160,195,235,.25);font-size:14px;letter-spacing:14px}
+.read-body .poem-sec{text-align:center;margin:40px 0;padding:32px 16px;position:relative}
+.read-body .poem-sec::before{content:'';display:block;width:60px;height:1px;background:rgba(200,168,110,.35);margin:0 auto 30px}
+.read-body .poem-name{font-family:Songti SC,STSong,SimSun,serif;font-size:17px;font-weight:600;color:rgba(200,168,110,.65);letter-spacing:4px;margin-bottom:6px}
+.read-body .poem-author{font-size:13px;color:rgba(216,228,240,.3);letter-spacing:2px;margin-bottom:28px}
+.read-body .poem-body{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:28px;font-weight:600;
+  color:#edf3fa;letter-spacing:6px;line-height:2.4;
+}
+.read-body .poem-hint{font-size:13px;color:rgba(200,168,110,.38);margin-top:24px;letter-spacing:1px}
+.read-body .explain-intro{text-align:center;font-size:15px;color:rgba(216,228,240,.45);margin-bottom:28px;font-style:italic}
+.read-body .explain-line{margin-bottom:24px;padding:0 4px}
+.read-body .explain-line .verse{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:20px;font-weight:600;
+  color:#c8a86e;letter-spacing:4px;margin-bottom:8px;display:block;
+}
+.read-body .explain-line .desc{font-size:16px;color:rgba(216,228,240,.65);line-height:2;padding-left:4px}
+.read-body .daddy-words{
+  background:rgba(200,168,110,.05);border:1px solid rgba(200,168,110,.1);
+  border-radius:16px;padding:24px 22px;margin-bottom:36px;
+  border-left:3px solid rgba(200,168,110,.35);
+}
+.read-body .dw-label{font-size:12px;color:rgba(200,168,110,.5);letter-spacing:3px;margin-bottom:14px}
+.read-body .daddy-words p{font-size:15px;color:rgba(216,228,240,.7);line-height:2.1;margin-bottom:12px}
+.read-body .closing{text-align:center;padding:30px 16px;position:relative}
+.read-body .closing::before{content:'';display:block;width:60px;height:1px;background:rgba(200,168,110,.35);margin:0 auto 28px}
+.read-body .closing p{font-size:15px;color:rgba(216,228,240,.5);line-height:2.2;margin-bottom:8px}
+.read-body .love{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:18px;font-weight:600;
+  color:rgba(200,168,110,.65);letter-spacing:3px;margin-top:18px;
+}
+.read-body .preview{
+  text-align:center;margin-top:40px;padding:20px 18px;
+  border:1px dashed rgba(160,195,235,.15);border-radius:12px;
+}
+.read-body .pv-label{font-size:11px;color:rgba(216,228,240,.25);letter-spacing:2px;margin-bottom:8px}
+.read-body .pv-title{font-family:Songti SC,STSong,SimSun,serif;font-size:15px;color:rgba(200,168,110,.5);letter-spacing:1px}
+.read-body .art-foot{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid rgba(160,195,235,.08)}
+.read-body .art-foot p{font-size:11px;color:rgba(216,228,240,.2);letter-spacing:1px;line-height:1.8}
+
+/* Reading footer */
+.read-footer{
+  flex-shrink:0;padding:12px 20px 16px;
+  padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  background:rgba(15,36,64,.9);border-top:1px solid rgba(160,195,235,.08);
+}
+.read-done-btn{
+  display:block;width:100%;
+  background:linear-gradient(135deg,rgba(200,168,110,.2),rgba(200,168,110,.1));
+  border:1px solid rgba(200,168,110,.35);
+  color:#c8a86e;font-size:16px;padding:14px 0;border-radius:25px;
+  cursor:pointer;letter-spacing:2px;margin-bottom:10px;
+  min-height:48px;transition:all .2s;
+}
+.read-done-btn:active{opacity:.7;transform:scale(.98)}
+.read-done-btn.done{
+  background:rgba(200,168,110,.1);border-color:rgba(200,168,110,.2);
+  color:rgba(200,168,110,.5);
+}
+.read-nav{display:flex;justify-content:space-between}
+.read-nav span{
+  font-size:13px;color:rgba(216,228,240,.4);cursor:pointer;
+  padding:8px 16px;letter-spacing:1px;min-height:44px;
+  display:flex;align-items:center;
+}
+.read-nav span.disabled{opacity:.3;pointer-events:none}
+.read-nav span:active:not(.disabled){color:#c8a86e}
+
+/* ── Modal / Overlay ── */
+.modal-overlay{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(10,20,35,.85);z-index:300;
+  display:none;align-items:center;justify-content:center;
+  padding:30px;
+}
+.modal-overlay.active{display:flex}
+.modal-box{
+  background:#1e3d60;border:1px solid rgba(160,195,235,.15);
+  border-radius:20px;padding:30px 24px;max-width:380px;width:100%;
+  text-align:center;
+}
+.modal-box h3{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:18px;color:#c8a86e;
+  letter-spacing:2px;margin-bottom:16px;
+}
+.modal-box p{font-size:14px;color:rgba(216,228,240,.6);line-height:1.8;margin-bottom:16px}
+.modal-box input{
+  width:100%;padding:12px 16px;border-radius:10px;
+  background:rgba(140,180,230,.08);border:1px solid rgba(160,195,235,.15);
+  color:#d8e4f0;font-size:15px;margin-bottom:16px;outline:none;
+}
+.modal-box input:focus{border-color:rgba(200,168,110,.4)}
+.modal-box .mbtn{
+  display:inline-block;
+  background:linear-gradient(135deg,rgba(200,168,110,.25),rgba(200,168,110,.1));
+  border:1px solid rgba(200,168,110,.35);
+  color:#c8a86e;font-size:15px;padding:12px 40px;border-radius:25px;
+  cursor:pointer;letter-spacing:2px;min-height:44px;
+}
+.modal-box .mbtn:active{opacity:.7}
+.share-text{
+  background:rgba(140,180,230,.06);border-radius:10px;padding:14px;
+  font-size:13px;color:rgba(216,228,240,.6);line-height:1.8;
+  text-align:left;margin-bottom:16px;word-break:break-all;
+}
+.share-copy-btn{
+  background:rgba(200,168,110,.15);border-radius:10px;padding:12px;
+  font-size:13px;color:#c8a86e;text-align:center;cursor:pointer;
+  margin-bottom:16px;letter-spacing:1px;transition:all .2s;
+}
+.share-copy-btn:active{opacity:.6;background:rgba(200,168,110,.25)}
+
+/* ── Tip / Science / Quote Cards ── */
+.tip-card{
+  background:rgba(200,168,110,.05);border:1px solid rgba(200,168,110,.1);
+  border-radius:12px;padding:14px 18px;margin-bottom:14px;
+}
+.tip-label{font-size:11px;color:rgba(200,168,110,.5);letter-spacing:2px;margin-bottom:6px}
+.tip-text{font-size:13px;color:rgba(216,228,240,.55);line-height:1.9}
+.science-card{
+  background:rgba(140,180,230,.04);border:1px solid rgba(160,195,235,.08);
+  border-radius:12px;padding:16px 18px;margin-top:16px;
+}
+.science-card .sc-label{font-size:11px;color:rgba(200,168,110,.5);letter-spacing:2px;margin-bottom:8px}
+.science-card .sc-text{font-size:13px;color:rgba(216,228,240,.5);line-height:1.9}
+.quote-card{
+  text-align:center;margin-top:20px;padding:20px 16px;
+  border-top:1px solid rgba(160,195,235,.06);
+}
+.quote-card .qc-text{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:15px;
+  color:rgba(200,168,110,.5);letter-spacing:1px;font-style:italic;margin-bottom:8px;
+}
+.quote-card .qc-author{font-size:12px;color:rgba(216,228,240,.25);letter-spacing:2px}
+
+/* ── Placeholder for future articles ── */
+.placeholder-article{text-align:center;padding:60px 20px}
+.placeholder-article .pa-emoji{font-size:60px;margin-bottom:20px}
+.placeholder-article .pa-title{
+  font-family:Songti SC,STSong,SimSun,serif;font-size:22px;color:#c8a86e;
+  letter-spacing:3px;margin-bottom:10px;
+}
+.placeholder-article .pa-meta{font-size:14px;color:rgba(216,228,240,.4);margin-bottom:20px}
+.placeholder-article .pa-desc{font-size:15px;color:rgba(216,228,240,.5);line-height:2}
+
+/* ── Stars decoration ── */
+.star{position:absolute;border-radius:50%}
+
+/* ── Responsive ── */
+@media(min-width:520px){.page-content{padding:0 30px}}
+@media(max-width:380px){
+  .today-header .brand{font-size:24px;letter-spacing:4px}
+  .read-body .poem-body{font-size:24px;letter-spacing:4px}
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <!-- ══ Today Page ══ -->
+  <div class="page active" id="page-today">
+    <div class="today-header">
+      <div class="star" style="top:3%;left:8%;width:3px;height:3px;background:rgba(200,168,110,.6)"></div>
+      <div class="star" style="top:5%;left:28%;width:2px;height:2px;background:rgba(216,228,240,.4)"></div>
+      <div class="star" style="top:2%;right:15%;width:3px;height:3px;background:rgba(200,168,110,.5)"></div>
+      <div class="star" style="top:8%;right:25%;width:2px;height:2px;background:rgba(216,228,240,.3)"></div>
+      <div class="star" style="top:12%;left:12%;width:2px;height:2px;background:rgba(216,228,240,.35)"></div>
+      <div class="star" style="top:10%;left:55%;width:3px;height:3px;background:rgba(200,168,110,.4)"></div>
+      <div class="star" style="top:15%;right:10%;width:2px;height:2px;background:rgba(200,168,110,.5)"></div>
+      <div class="star" style="top:1%;left:42%;width:2px;height:2px;background:rgba(216,228,240,.3)"></div>
+      <div class="moon">🌙</div>
+      <div class="brand">听见爸爸了</div>
+      <div class="sub">准爸爸睡前胎教故事</div>
+      <div class="today-stats">
+        <div class="today-stat"><div class="num" id="stat-day">-</div><div class="label">今天是第X天</div></div>
+        <div class="today-stat"><div class="num" id="stat-read">0</div><div class="label">已读天数</div></div>
+      </div>
+      <div class="today-progress"><div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div></div>
+      <div class="today-count" id="progress-text">已读 0 天 / 共 140 天</div>
+    </div>
+    <div class="page-content">
+      <div class="tip-card" id="tip-card" style="display:none">
+        <div class="tip-label">💡 今日小贴士</div>
+        <div class="tip-text" id="tip-text"></div>
+      </div>
+      <div class="today-card" id="today-card">
+        <div class="tc-label">📖 今日阅读</div>
+        <div class="tc-title" id="today-title">-</div>
+        <div class="tc-meta" id="today-meta">-</div>
+        <div class="tc-btn" id="today-btn" onclick="startReadToday()">开始阅读 →</div>
+      </div>
+      <div class="tomorrow-card">
+        <div class="tc-label">📅 明日预告</div>
+        <div class="tc-title" id="tomorrow-title">-</div>
+      </div>
+      <div class="science-card">
+        <div class="sc-label">🔬 科学依据</div>
+        <div class="sc-text">约翰霍普金斯大学研究发现：孕23周胎儿对低频声音最敏感，恰好是爸爸说话的频率范围。爸爸每天对胎儿说话20分钟，宝宝出生后对男性声音识别速度提升40%。</div>
+      </div>
+      <div class="quote-card">
+        <div class="qc-text">你的声音，是全世界最好的胎教工具。</div>
+        <div class="qc-author">—— 听见爸爸了</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Catalog Page ══ -->
+  <div class="page" id="page-catalog">
+    <div class="catalog-header">
+      <h2>140天阅读计划</h2>
+      <p>从孕20周到宝宝出生</p>
+    </div>
+    <div class="page-content" id="catalog-content">
+    </div>
+  </div>
+
+  <!-- ══ Mine Page ══ -->
+  <div class="page" id="page-mine">
+    <div class="mine-header">
+      <div class="moon">🌙</div>
+      <h2>我的阅读旅程</h2>
+    </div>
+    <div class="page-content">
+      <div class="mine-stats">
+        <div class="mine-stat"><div class="num" id="mine-read">0</div><div class="label">已读天数</div></div>
+        <div class="mine-stat"><div class="num" id="mine-streak">0</div><div class="label">连续打卡 🔥</div></div>
+      </div>
+      <div class="mine-progress"><div class="progress-bar"><div class="progress-fill" id="mine-progress" style="width:0%"></div></div></div>
+      <div class="mine-section">
+        <div class="ms-title">📅 开始日期</div>
+        <div class="ms-content" id="mine-start-date">未设置</div>
+        <div class="ms-btn" onclick="showDateModal()">修改日期</div>
+      </div>
+      <div class="mine-section">
+        <div class="ms-title">📜 阅读历史</div>
+        <div id="mine-history"><div class="ms-content">还没有开始阅读哦</div></div>
+      </div>
+      <div class="mine-section">
+        <div class="ms-title">💌 分享给闺蜜</div>
+        <div class="ms-content">邀请Ta一起加入140天胎教计划</div>
+        <div class="ms-btn" onclick="showShareModal()">生成分享卡片</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Tab Bar ══ -->
+  <div class="tab-bar" id="tab-bar">
+    <div class="tab-item active" onclick="switchTab('today')">
+      <span class="tab-icon">🏠</span><span>今天</span>
+    </div>
+    <div class="tab-item" onclick="switchTab('catalog')">
+      <span class="tab-icon">📋</span><span>目录</span>
+    </div>
+    <div class="tab-item" onclick="switchTab('mine')">
+      <span class="tab-icon">👤</span><span>我的</span>
+    </div>
+  </div>
+
+  <!-- ══ Reading Page ══ -->
+  <div class="read-page" id="read-page">
+    <div class="read-top">
+      <div class="read-back" onclick="exitRead()">← 返回</div>
+      <div class="read-day-num" id="read-day-num"></div>
+    </div>
+    <div class="read-body" id="read-body"></div>
+    <div class="read-footer">
+      <div class="read-done-btn" id="read-done-btn" onclick="markDone()">✓ 我读完了</div>
+      <div class="read-nav">
+        <span id="nav-prev" onclick="navPrev()">← 上一篇</span>
+        <span id="nav-next" onclick="navNext()">下一篇 →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Date Modal ══ -->
+  <div class="modal-overlay" id="date-modal">
+    <div class="modal-box">
+      <h3>设置开始日期</h3>
+      <p>选择你开始（或计划开始）胎教的日期，<br>系统会自动计算今天是第几天。</p>
+      <input type="date" id="date-input">
+      <div class="mbtn" onclick="saveStartDate()">确认</div>
+    </div>
+  </div>
+
+  <!-- ══ Share Modal ══ -->
+  <div class="modal-overlay" id="share-modal">
+    <div class="modal-box">
+      <h3>分享给闺蜜 🌙</h3>
+      <div class="share-text" id="share-text"></div>
+      <div class="share-copy-btn" id="share-copy-btn" onclick="copyShareText()"> 复制分享文案</div>
+      <div class="mbtn" onclick="closeShareModal()">关闭</div>
+    </div>
+  </div>
+
+  <!-- ══ First-time Setup Modal ══ -->
+  <div class="modal-overlay" id="setup-modal">
+    <div class="modal-box">
+      <h3>🌙 欢迎来到「听见爸爸了」</h3>
+      <p>这是一个140天的准爸爸胎教计划。<br>每天晚上花15分钟，用声音陪伴宝宝成长。</p>
+      <p>请先设置你的开始日期：</p>
+      <input type="date" id="setup-date-input">
+      <div class="mbtn" onclick="saveSetupDate()">开始旅程</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════ DATA ══════
+var PLAN = [{d:1,t:"静夜思",w:20,y:"古诗",m:"12min",h:1},
+{d:2,t:"春晓",w:20,y:"古诗",m:"12min",h:1},
+{d:3,t:"咏鹅",w:20,y:"古诗",m:"12min",h:1},
+{d:4,t:"一闪一闪亮晶晶",w:21,y:"童谣",m:"10min",h:1},
+{d:5,t:"登鹳雀楼",w:21,y:"古诗",m:"12min",h:1},
+{d:6,t:"摇篮曲",w:21,y:"童谣",m:"10min",h:1},
+{d:7,t:"雨夜的声音",w:22,y:"古诗+自然",m:"15min",h:1},
+{d:8,t:"相思",w:22,y:"古诗",m:"12min",h:1},
+{d:9,t:"悯农",w:22,y:"古诗",m:"12min",h:1},
+{d:10,t:"写给未来的你",w:23,y:"古诗+心里话",m:"15min",h:1},
+{d:11,t:"小燕子",w:23,y:"童谣",m:"10min",h:0},
+{d:12,t:"望庐山瀑布",w:23,y:"古诗",m:"12min",h:0},
+{d:13,t:"两只老虎",w:23,y:"童谣",m:"10min",h:0},
+{d:14,t:"早发白帝城",w:24,y:"古诗",m:"12min",h:0},
+{d:15,t:"小兔子乖乖",w:24,y:"童谣",m:"10min",h:0},
+{d:16,t:"江南",w:24,y:"古诗",m:"12min",h:0},
+{d:17,t:"数鸭子",w:24,y:"童谣",m:"10min",h:0},
+{d:18,t:"绝句·两个黄鹂",w:24,y:"古诗",m:"12min",h:0},
+{d:19,t:"找朋友",w:24,y:"童谣",m:"10min",h:0},
+{d:20,t:"望岳",w:24,y:"古诗",m:"12min",h:0},
+{d:21,t:"小星星的梦",w:24,y:"自然",m:"10min",h:0},
+{d:22,t:"回乡偶书",w:24,y:"古诗",m:"12min",h:0},
+{d:23,t:"月亮婆婆喜欢我",w:24,y:"童谣",m:"10min",h:0},
+{d:24,t:"悯农·其二",w:24,y:"古诗",m:"12min",h:0},
+{d:25,t:"虫儿飞",w:24,y:"童谣",m:"10min",h:0},
+{d:26,t:"江雪",w:24,y:"古诗",m:"12min",h:0},
+{d:27,t:"风的声音",w:24,y:"自然",m:"10min",h:0},
+{d:28,t:"鹿柴",w:24,y:"古诗",m:"12min",h:0},
+{d:29,t:"拔萝卜",w:24,y:"童谣",m:"10min",h:0},
+{d:30,t:"夜宿山寺",w:24,y:"古诗",m:"12min",h:0},
+{d:31,t:"小蝌蚪找妈妈",w:24,y:"故事",m:"15min",h:0},
+{d:32,t:"咏柳",w:24,y:"古诗",m:"12min",h:0},
+{d:33,t:"月亮船",w:24,y:"童谣",m:"10min",h:0},
+{d:34,t:"赋得古原草送别",w:24,y:"古诗",m:"12min",h:0},
+{d:35,t:"声音的礼物",w:24,y:"特别篇",m:"15min",h:0},
+{d:36,t:"小红帽",w:25,y:"童话",m:"15min",h:0},
+{d:37,t:"春夜喜雨",w:25,y:"古诗",m:"12min",h:0},
+{d:38,t:"三只小猪",w:25,y:"童话",m:"15min",h:0},
+{d:39,t:"清明",w:25,y:"古诗",m:"12min",h:0},
+{d:40,t:"龟兔赛跑",w:25,y:"童话",m:"15min",h:0},
+{d:41,t:"游子吟",w:25,y:"古诗",m:"12min",h:0},
+{d:42,t:"小乌鸦爱妈妈",w:25,y:"童谣",m:"10min",h:0},
+{d:43,t:"题西林壁",w:25,y:"古诗",m:"12min",h:0},
+{d:44,t:"白雪公主",w:25,y:"童话",m:"15min",h:0},
+{d:45,t:"小池",w:25,y:"古诗",m:"12min",h:0},
+{d:46,t:"灰姑娘",w:25,y:"童话",m:"15min",h:0},
+{d:47,t:"四季的声音",w:25,y:"自然",m:"12min",h:0},
+{d:48,t:"丑小鸭",w:25,y:"童话",m:"15min",h:0},
+{d:49,t:"晓出净慈寺送林子方",w:25,y:"古诗",m:"12min",h:0},
+{d:50,t:"卖火柴的小女孩",w:25,y:"童话",m:"15min",h:0},
+{d:51,t:"三字经·节选",w:25,y:"国学",m:"12min",h:0},
+{d:52,t:"拇指姑娘",w:25,y:"童话",m:"15min",h:0},
+{d:53,t:"山行",w:25,y:"古诗",m:"12min",h:0},
+{d:54,t:"睡美人",w:26,y:"童话",m:"15min",h:0},
+{d:55,t:"蜂",w:26,y:"古诗",m:"12min",h:0},
+{d:56,t:"皇帝的新衣",w:26,y:"童话",m:"15min",h:0},
+{d:57,t:"声律启蒙",w:26,y:"国学",m:"12min",h:0},
+{d:58,t:"海的女儿",w:26,y:"童话",m:"15min",h:0},
+{d:59,t:"竹枝词",w:26,y:"古诗",m:"12min",h:0},
+{d:60,t:"小熊请客",w:26,y:"故事",m:"15min",h:0},
+{d:61,t:"望天门山",w:26,y:"古诗",m:"12min",h:0},
+{d:62,t:"小狐狸的故事",w:26,y:"童话",m:"15min",h:0},
+{d:63,t:"爸爸的声音",w:26,y:"特别篇",m:"15min",h:0},
+{d:64,t:"阿里巴巴",w:27,y:"童话",m:"18min",h:0},
+{d:65,t:"出塞",w:27,y:"古诗",m:"12min",h:0},
+{d:66,t:"神笔马良",w:27,y:"童话",m:"18min",h:0},
+{d:67,t:"凉州词",w:27,y:"古诗",m:"12min",h:0},
+{d:68,t:"哪吒闹海",w:27,y:"童话",m:"18min",h:0},
+{d:69,t:"春日",w:27,y:"古诗",m:"12min",h:0},
+{d:70,t:"司马光砸缸",w:27,y:"故事",m:"15min",h:0},
+{d:71,t:"元日",w:27,y:"古诗",m:"12min",h:0},
+{d:72,t:"孔融让梨",w:27,y:"故事",m:"15min",h:0},
+{d:73,t:"九月九日忆山东兄弟",w:27,y:"古诗",m:"12min",h:0},
+{d:74,t:"曹冲称象",w:27,y:"故事",m:"15min",h:0},
+{d:75,t:"春晓·重读",w:27,y:"古诗",m:"12min",h:0},
+{d:76,t:"愚公移山",w:27,y:"故事",m:"18min",h:0},
+{d:77,t:"水调歌头",w:27,y:"古诗",m:"15min",h:0},
+{d:78,t:"花木兰",w:27,y:"故事",m:"18min",h:0},
+{d:79,t:"枫桥夜泊",w:27,y:"古诗",m:"12min",h:0},
+{d:80,t:"田螺姑娘",w:27,y:"故事",m:"18min",h:0},
+{d:81,t:"黄鹤楼送孟浩然之广陵",w:27,y:"古诗",m:"12min",h:0},
+{d:82,t:"精卫填海",w:27,y:"故事",m:"18min",h:0},
+{d:83,t:"赠汪伦",w:27,y:"古诗",m:"12min",h:0},
+{d:84,t:"夸父追日",w:27,y:"故事",m:"18min",h:0},
+{d:85,t:"临江仙",w:27,y:"古诗",m:"15min",h:0},
+{d:86,t:"牛郎织女",w:27,y:"故事",m:"18min",h:0},
+{d:87,t:"示儿",w:28,y:"古诗",m:"12min",h:0},
+{d:88,t:"后羿射日",w:28,y:"故事",m:"18min",h:0},
+{d:89,t:"过故人庄",w:28,y:"古诗",m:"12min",h:0},
+{d:90,t:"嫦娥奔月",w:28,y:"故事",m:"18min",h:0},
+{d:91,t:"千字文·节选",w:28,y:"国学",m:"15min",h:0},
+{d:92,t:"大闹天宫",w:28,y:"故事",m:"18min",h:0},
+{d:93,t:"春望",w:28,y:"古诗",m:"12min",h:0},
+{d:94,t:"三字经·二",w:28,y:"国学",m:"15min",h:0},
+{d:95,t:"女娲补天",w:28,y:"故事",m:"18min",h:0},
+{d:96,t:"茅屋为秋风所破歌",w:28,y:"古诗",m:"15min",h:0},
+{d:97,t:"仓颉造字",w:28,y:"故事",m:"18min",h:0},
+{d:98,t:"岳阳楼记",w:28,y:"古诗",m:"15min",h:0},
+{d:99,t:"神农尝百草",w:28,y:"故事",m:"18min",h:0},
+{d:100,t:"百日纪念",w:28,y:"特别篇",m:"20min",h:0},
+{d:101,t:"西游记",w:28,y:"故事",m:"18min",h:0},
+{d:102,t:"爱莲说",w:28,y:"古诗",m:"12min",h:0},
+{d:103,t:"红楼梦",w:28,y:"故事",m:"18min",h:0},
+{d:104,t:"短歌行",w:28,y:"古诗",m:"12min",h:0},
+{d:105,t:"三字经·三",w:28,y:"国学",m:"15min",h:0},
+{d:106,t:"将进酒",w:28,y:"古诗",m:"15min",h:0},
+{d:107,t:"爸爸小时候",w:28,y:"心里话",m:"18min",h:0},
+{d:108,t:"念奴娇·赤壁怀古",w:28,y:"古诗",m:"15min",h:0},
+{d:109,t:"爸爸妈妈的故事",w:28,y:"心里话",m:"18min",h:0},
+{d:110,t:"陋室铭",w:28,y:"古诗",m:"12min",h:0},
+{d:111,t:"你的名字",w:28,y:"心里话",m:"18min",h:0},
+{d:112,t:"醉翁亭记",w:28,y:"古诗",m:"15min",h:0},
+{d:113,t:"十个期望",w:28,y:"心里话",m:"18min",h:0},
+{d:114,t:"滕王阁序",w:28,y:"古诗",m:"15min",h:0},
+{d:115,t:"我们的家",w:28,y:"心里话",m:"18min",h:0},
+{d:116,t:"师说",w:29,y:"古诗",m:"12min",h:0},
+{d:117,t:"你是礼物",w:29,y:"心里话",m:"18min",h:0},
+{d:118,t:"马说",w:29,y:"古诗",m:"12min",h:0},
+{d:119,t:"记忆的回声",w:29,y:"特别篇",m:"18min",h:0},
+{d:120,t:"小熊出生了",w:29,y:"童话",m:"15min",h:0},
+{d:121,t:"迎接你",w:30,y:"寄语",m:"15min",h:0},
+{d:122,t:"小马过河",w:30,y:"童话",m:"15min",h:0},
+{d:123,t:"准备好了",w:30,y:"寄语",m:"15min",h:0},
+{d:124,t:"月亮星星",w:30,y:"童话",m:"15min",h:0},
+{d:125,t:"温暖的家",w:30,y:"寄语",m:"15min",h:0},
+{d:126,t:"小猫钓鱼",w:30,y:"童话",m:"15min",h:0},
+{d:127,t:"第一首歌",w:30,y:"寄语",m:"15min",h:0},
+{d:128,t:"小松鼠",w:30,y:"童话",m:"15min",h:0},
+{d:129,t:"小床准备好了",w:30,y:"寄语",m:"15min",h:0},
+{d:130,t:"狐狸和乌鸦",w:30,y:"童话",m:"15min",h:0},
+{d:131,t:"等你",w:30,y:"寄语",m:"15min",h:0},
+{d:132,t:"小企鹅",w:30,y:"童话",m:"15min",h:0},
+{d:133,t:"第一封信",w:30,y:"寄语",m:"15min",h:0},
+{d:134,t:"小种子",w:31,y:"童话",m:"15min",h:0},
+{d:135,t:"名字里的爱",w:31,y:"寄语",m:"15min",h:0},
+{d:136,t:"勇敢的小裁缝",w:31,y:"童话",m:"15min",h:0},
+{d:137,t:"最好的礼物",w:31,y:"寄语",m:"15min",h:0},
+{d:138,t:"小鸟学飞",w:31,y:"童话",m:"15min",h:0},
+{d:139,t:"明天见宝贝",w:31,y:"寄语",m:"15min",h:0},
+{d:140,t:"永远爱你",w:31,y:"特别篇",m:"20min",h:0}];
+
+var ARTICLES = {1:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 001 篇</div><div class="dc-title">静夜思</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 20 周 · 听觉唤醒期</div><div class="dc-time">朗读约 12 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天是爸爸第一次正式给你念故事哦。</p>
+    <p>你现在大概有一根香蕉那么长了，小耳朵正在一点一点长好。爸爸说话的声音，是你现在能听到的最好听的声音之一——因为爸爸的声音低低的，刚好能传到你那里。</p>
+    <p>以后每天晚上，爸爸都会在这个时候给你念一篇短短的内容，不长，十几分钟就够。等你听熟了，就知道——哦，是爸爸在跟我说话呢。</p>
+    <p>好，那我们开始啦。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">静 夜 思</div>
+    <div class="poem-author">〔唐〕李 白</div>
+    <div class="poem-body">床前明月光，<br>疑是地上霜。<br>举头望明月，<br>低头思故乡。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，每个字都念清楚</div>
+  </div>
+  <div class="explain-intro">好，再念一遍，这次一边念一边告诉你诗里在说什么——</div>
+  <div class="explain-line"><span class="verse">「床前明月光」</span><div class="desc">宝宝，你想象一下——有一个人，晚上躺在床上，睡不着。月光从窗户照进来，白白的、亮亮的，洒在床前面的地板上。</div></div>
+  <div class="explain-line"><span class="verse">「疑是地上霜」</span><div class="desc">他迷迷糊糊地看，咦，地上怎么白茫茫一片？是不是下霜了呀？哦，不是，是月光。</div></div>
+  <div class="explain-line"><span class="verse">「举头望明月」</span><div class="desc">他抬起头来看窗外——哇，天上挂着一轮又大又圆的月亮。</div></div>
+  <div class="explain-line"><span class="verse">「低头思故乡」</span><div class="desc">看到月亮，他就想家了。他的家在很远的地方，他想起了家里的爸爸妈妈，想起了小时候的事情。</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，这首诗是一千多年前一个很有名的诗人写的，他叫李白。李白特别喜欢月亮，写了好多好多关于月亮的诗。</p>
+    <p>你知道吗？你现在虽然还看不到月亮，但你已经能听到爸爸的声音了。等你长大了，爸爸带你一起看月亮，到时候再念这首诗给你听，好不好？</p>
+    <p>今晚这首诗，你不需要听懂每一个字。你只需要知道——爸爸在说话，爸爸陪着你，这就够了。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">第 002 篇 · 春晓</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`,
+2:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 002 篇</div><div class="dc-title">春晓</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 20 周 · 听觉唤醒期</div><div class="dc-time">朗读约 12 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天是你听到爸爸声音的第二天哦。昨晚你睡得还好吗？是不是在妈妈肚子里翻了个身？</p>
+    <p>今天爸爸给你念一首特别轻快的诗。这首诗写的是一个春天的早晨——有鸟叫，有风，有花。你虽然还没见过春天，但爸爸的声音可以带你去感受。</p>
+    <p>好，我们开始吧。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">春 晓</div>
+    <div class="poem-author">〔唐〕孟 浩 然</div>
+    <div class="poem-body">春眠不觉晓，<br>处处闻啼鸟。<br>夜来风雨声，<br>花落知多少。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，每个字都念清楚</div>
+  </div>
+  <div class="explain-intro">好，再念一遍，这次一边念一边告诉你诗里在说什么——</div>
+  <div class="explain-line"><span class="verse">「春眠不觉晓」</span><div class="desc">宝宝，春天来了，天气暖暖的，睡得特别舒服。一觉睡到天亮了，自己都不知道天已经亮了。你有没有在妈妈肚子里睡得特别香的时候？</div></div>
+  <div class="explain-line"><span class="verse">「处处闻啼鸟」</span><div class="desc">一醒来，到处都能听到小鸟在叫。叽叽喳喳、叽叽喳喳——各种鸟的叫声从窗外传进来，好像在说：起床啦起床啦！</div></div>
+  <div class="explain-line"><span class="verse">「夜来风雨声」</span><div class="desc">诗人想起来，昨天半夜好像听到了刮风下雨的声音。哗啦啦——哗啦啦——风把雨吹到了窗户上。</div></div>
+  <div class="explain-line"><span class="verse">「花落知多少」</span><div class="desc">下了一夜的雨，花园里的花被打落了多少呢？明天出去看看吧，地上一定铺满了花瓣。</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，这首诗是一千多年前的一个诗人写的，他叫孟浩然。他特别喜欢大自然，写了好多关于春天、关于山水的诗。</p>
+    <p>你知道吗？春天的时候，树上会开出各种颜色的花——粉色的、白色的、红色的。等你出来了，爸爸带你去看花，好不好？</p>
+    <p>今晚这首诗里，有鸟叫的声音，有下雨的声音。你听爸爸念的时候，是不是感觉特别安静、特别舒服？这就是春天的感觉。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">第 003 篇 · 咏鹅</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`,
+3:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 003 篇</div><div class="dc-title">咏鹅</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 20 周 · 听觉唤醒期</div><div class="dc-time">朗读约 12 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天爸爸给你念一首特别有趣的诗。这首诗的作者写它的时候，才只有七岁！比你很多叔叔阿姨家的哥哥姐姐都小。</p>
+    <p>他写的是大白鹅。对，就是你在绘本上看到的那种——白白的、脖子长长的、在水里游来游去的大白鹅。</p>
+    <p>这首诗念起来特别好玩，你听好了。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">咏 鹅</div>
+    <div class="poem-author">〔唐〕骆 宾 王</div>
+    <div class="poem-body">鹅鹅鹅，<br>曲项向天歌。<br>白毛浮绿水，<br>红掌拨清波。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，每个字都念清楚</div>
+  </div>
+  <div class="explain-intro">来，爸爸再念一遍，这次告诉你诗里在说什么——</div>
+  <div class="explain-line"><span class="verse">「鹅 鹅 鹅」</span><div class="desc">开头就是三声'鹅'——你想象一下，一群大白鹅在水边，嘎嘎嘎地叫。小朋友看到它们，高兴得连喊了三声：鹅！鹅！鹅！</div></div>
+  <div class="explain-line"><span class="verse">「曲项向天歌」</span><div class="desc">大白鹅弯着长长的脖子，仰起头来朝天唱歌。嘎——嘎——嘎——声音特别响亮，特别骄傲。</div></div>
+  <div class="explain-line"><span class="verse">「白毛浮绿水」</span><div class="desc">白色的羽毛浮在绿色的水面上。白白的、绿绿的，颜色特别好看。大白鹅就那样静静地漂在水上，像一朵白云落在了湖里。</div></div>
+  <div class="explain-line"><span class="verse">「红掌拨清波」</span><div class="desc">可是水底下呢？它的脚掌是红色的！红红的脚掌在水底划来划去，清清的水面上荡起了一圈一圈的波纹。</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，这首诗最厉害的地方是——写它的作者骆宾王，只有七岁！七岁就能写出这么生动的诗，是不是很厉害？</p>
+    <p>你有没有发现，这首诗特别有画面感？白的鹅、绿的水、红的脚掌——就像一幅画一样。</p>
+    <p>等你出来了，爸爸带你去公园看真的鹅。到时候你再念这首诗，看看是不是跟诗里写的一样。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">第 004 篇 · 一闪一闪亮晶晶</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`,
+4:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 004 篇</div><div class="dc-title">一闪一闪亮晶晶</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 21 周 · 听觉唤醒期</div><div class="dc-time">朗读约 10 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天爸爸不念诗了，今天给你念一首歌——一首全世界小朋友都会唱的歌。</p>
+    <p>这首歌叫《小星星》。你可能在妈妈的肚子里就听妈妈哼过了，对吧？</p>
+    <p>今天爸爸用低音版给你唱一遍，你听听看，爸爸唱的和妈妈唱的有什么不一样。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">小 星 星</div>
+    <div class="poem-author">经 典 童 谣</div>
+    <div class="poem-body">一闪一闪亮晶晶，<br>满天都是小星星。<br>挂在天空放光明，<br>好像许多小眼睛。<br><br>一闪一闪亮晶晶，<br>满天都是小星星。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，可以轻轻哼出来</div>
+  </div>
+  <div class="explain-intro">好，爸爸再慢慢念一遍歌词，告诉你这首歌在说什么——</div>
+  <div class="explain-line"><span class="verse">「一闪一闪亮晶晶」</span><div class="desc">宝宝，你见过夜空吗？晚上的天上有好多好多小星星，它们一闪一闪的，亮亮的，就像有人在天上开了好多小灯。</div></div>
+  <div class="explain-line"><span class="verse">「满天都是小星星」</span><div class="desc">天上不止一颗，是满天都是。你看都看不过来，这颗亮了那颗又闪了，密密麻麻的。</div></div>
+  <div class="explain-line"><span class="verse">「挂在天空放光明」</span><div class="desc">它们挂在天上，虽然每颗都不大，但合在一起就把夜空照得很亮很亮。没有它们，晚上就黑漆漆的了。</div></div>
+  <div class="explain-line"><span class="verse">「好像许多小眼睛」</span><div class="desc">你看它们一闪一闪的，像不像好多小眼睛在看着你？它们在看着地上的每一个宝宝，包括你哦。</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，这首歌的旋律很简单，但你听了几遍之后就会记住。研究说，你在妈妈肚子里听到的音乐，出生以后还会觉得熟悉呢。</p>
+    <p>以后每天晚上，爸爸给你念完诗或者故事，妈妈可能会再哼一遍这首歌哄你睡觉。</p>
+    <p>等你出生了，这首歌就是你最早认识的歌之一了——在你还没见过这个世界之前，就已经听过了。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">第 005 篇 · 登鹳雀楼</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`,
+5:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 005 篇</div><div class="dc-title">登鹳雀楼</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 21 周 · 听觉唤醒期</div><div class="dc-time">朗读约 12 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天爸爸给你念一首特别有力量的诗。这首诗只有二十个字，但它写了一个特别特别壮观的画面。</p>
+    <p>你闭上眼睛——哦不对，你现在还睁不开眼睛。那你就竖起小耳朵听好了。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">登 鹳 雀 楼</div>
+    <div class="poem-author">〔唐〕王 之 涣</div>
+    <div class="poem-body">白日依山尽，<br>黄河入海流。<br>欲穷千里目，<br>更上一层楼。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，每个字都念清楚</div>
+  </div>
+  <div class="explain-intro">好，爸爸再念一遍，这次一边念一边给你讲——</div>
+  <div class="explain-line"><span class="verse">「白日依山尽」</span><div class="desc">宝宝，你想象一下——太阳圆圆的、亮亮的，慢慢地往山后面落下去。山一座连着一座，太阳就靠在山边，一点一点地消失了。这就是'依山尽'。</div></div>
+  <div class="explain-line"><span class="verse">「黄河入海流」</span><div class="desc">再看另一边——有一条好大好大的河，叫黄河。它的水是黄色的，滚滚地从西边往东边流，一直流到大海里去。那个气势，特别壮观。</div></div>
+  <div class="explain-line"><span class="verse">「欲穷千里目」</span><div class="desc">诗人站在一个高高的楼上，看到了太阳落山、黄河入海。但他还想看得更远——看到一千里之外的地方。</div></div>
+  <div class="explain-line"><span class="verse">「更上一层楼」</span><div class="desc">怎么办呢？再往上爬一层楼就好了！站得更高，就看得更远。这两句诗后来变成了一个道理：想要看得更远、学到更多，就要不断努力往上走。</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，这首诗虽然只有二十个字，但是里面有太阳、有山、有大河、有大海，还有一个人站在高楼上往远处看。二十个字就画出了这么大的一幅画。</p>
+    <p>等你长大了学这首诗的时候，爸爸今天给你讲的那些画面，你就能自己看到了。</p>
+    <p>'更上一层楼'这句话，爸爸也送给你。以后不管做什么事情，觉得够了、到顶了，就再往上走一步，说不定能看到更美的风景。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">第 006 篇 · 摇篮曲</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`,
+6:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 006 篇</div><div class="dc-title">摇篮曲</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 21 周 · 听觉唤醒期</div><div class="dc-time">朗读约 10 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天给你念的是一首摇篮曲。摇篮曲就是——妈妈或者爸爸哄小宝宝睡觉时唱的歌。</p>
+    <p>现在你住在妈妈肚子里，妈妈的肚子就是你第一个小摇篮。妈妈走路的时候轻轻晃，你就在里面摇啊摇。</p>
+    <p>今天爸爸用声音给你做一个摇篮，你听好了。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">摇 篮 曲</div>
+    <div class="poem-author">亲 子 童 谣</div>
+    <div class="poem-body">风儿轻轻吹，<br>鸟儿慢慢飞。<br>宝宝快睡觉，<br>梦里花儿开。<br><br>星星眨眨眼，<br>月亮弯弯笑。<br>宝宝快睡觉，<br>爸妈陪着你。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，可以轻轻哼出来</div>
+  </div>
+  <div class="explain-intro">好，爸爸再慢慢念一遍，这次一边念一边告诉你歌词里在说什么——</div>
+  <div class="explain-line"><span class="verse">「风儿轻轻吹」</span><div class="desc">宝宝，想象一下——有一阵很轻很轻的风，吹过来，吹过去。不是大风哦，是很温柔的那种，像你妈妈摸着肚子的那只手一样轻柔。</div></div>
+  <div class="explain-line"><span class="verse">「鸟儿慢慢飞」</span><div class="desc">天快黑了，小鸟也飞累了。它们不急不慢地扇着翅膀，慢慢地飞回自己的窝里去。</div></div>
+  <div class="explain-line"><span class="verse">「宝宝快睡觉，梦里花儿开」</span><div class="desc">宝宝该睡觉了。闭上眼睛，做一个甜甜的梦。梦里有好多好多花开——红的、黄的、紫的，到处都是。</div></div>
+  <div class="explain-line"><span class="verse">「星星眨眨眼，月亮弯弯笑」</span><div class="desc">天上的星星在对着你眨眼睛，弯弯的月亮在笑。它们都在说：小宝宝，安心睡吧。</div></div>
+  <div class="explain-line"><span class="verse">「宝宝快睡觉，爸妈陪着你」</span><div class="desc">爸爸和妈妈都在你身边，守着你，陪着你。什么都不用怕，安心睡就好了。</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，这首摇篮曲是爸爸今天专门为你念的。以后每天晚上念完其他内容，爸爸都会在最后说一段话给你。</p>
+    <p>你现在大部分时间都在睡觉，对吧？没关系，你在妈妈肚子里睡觉的时候，也能听到爸爸的声音。那些声音会变成一种安全感，让你知道——有人在陪着你。</p>
+    <p>好了，今晚的内容到这里就差不多了。安静一会儿吧，爸爸妈妈都在。晚安。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">第 007 篇 · 雨夜的声音</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`,
+7:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 007 篇</div><div class="dc-title">雨夜的声音</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 22 周 · 听觉唤醒期</div><div class="dc-time">朗读约 15 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天晚上外面好像有点安静。爸爸想给你描述一个画面——一个下雨的夜晚。</p>
+    <p>你可能不知道雨是什么。等你出来了，下雨的时候爸爸抱你在窗户边看。现在，你用耳朵听就好了。</p>
+    <p>今天先念一首古诗，再给你描述一下雨夜的声音。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">春 夜 喜 雨（节选）</div>
+    <div class="poem-author">〔唐〕杜 甫</div>
+    <div class="poem-body">好雨知时节，<br>当春乃发生。<br>随风潜入夜，<br>润物细无声。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，每个字都念清楚</div>
+  </div>
+  <div class="explain-intro">好，先念这首古诗——</div>
+  <div class="explain-line"><span class="verse">「好雨知时节」</span><div class="desc">宝宝，有一场雨，它特别懂事。它知道什么时候该下——春天万物生长的时候，最需要雨水，它就来了。就像你很乖，知道妈妈吃饭的时候你才踢得最欢。</div></div>
+  <div class="explain-line"><span class="verse">「当春乃发生」</span><div class="desc">春天一到，这场雨就来了。不早也不晚，刚刚好。</div></div>
+  <div class="explain-line"><span class="verse">「随风潜入夜」</span><div class="desc">这场雨不是哗啦啦的大暴雨，它是跟着风，在夜里悄悄地来的。'潜'就是偷偷的、不出声的意思。</div></div>
+  <div class="explain-line"><span class="verse">「润物细无声」</span><div class="desc">它细细地下，滋润着花、草、树、泥土——但是没有声音。你仔细听都听不到，可花草树木都喝到水了。</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，这首诗是杜甫写的。杜甫跟李白不一样，李白是那种很浪漫很飘逸的人，杜甫则是一个很关心别人的人。他看到春雨来了，知道庄稼能喝到水了，心里特别高兴，就写了这首诗。</p>
+    <p>'润物细无声'这句话特别美——最好的东西往往是安静的、不张扬的。爸爸对你的爱也是这样，可能你不会一直注意到，但它一直在。</p>
+    <p>以后下雨的时候，你仔细听听——沙沙沙，沙沙沙——那就是雨在给花草树木讲故事呢。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">第 008 篇 · 相思</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`,
+8:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 008 篇</div><div class="dc-title">相思</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 22 周 · 听觉唤醒期</div><div class="dc-time">朗读约 12 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天爸爸给你念一首特别温柔的诗。这首诗叫《相思》——'相思'就是想念一个人的意思。</p>
+    <p>你还没出生呢，爸爸妈妈就已经在想你、念你了。这首诗，就是写这种感觉的。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">相 思</div>
+    <div class="poem-author">〔唐〕王 维</div>
+    <div class="poem-body">红豆生南国，<br>春来发几枝。<br>愿君多采撷，<br>此物最相思。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，每个字都念清楚</div>
+  </div>
+  <div class="explain-intro">好，爸爸慢慢念，一边念一边告诉你——</div>
+  <div class="explain-line"><span class="verse">「红豆生南国」</span><div class="desc">宝宝，在南方有一种树，树上会长出一种小小的果子，红红的，圆圆的，特别漂亮。这种果子叫'红豆'。</div></div>
+  <div class="explain-line"><span class="verse">「春来发几枝」</span><div class="desc">春天来了，红豆树又长出了新的枝条。一年又一年，它一直在那里长着。</div></div>
+  <div class="explain-line"><span class="verse">「愿君多采撷」</span><div class="desc">诗人在说：希望你多摘一些红豆。为什么呢？</div></div>
+  <div class="explain-line"><span class="verse">「此物最相思」</span><div class="desc">因为红豆代表思念。当你想一个人的时候，看看红豆就会想起他。古人常常把红豆送给远方的朋友或者亲人，意思是——我在想你。</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，这首诗的作者叫王维，他也是唐朝的诗人。王维的诗跟别人不一样，读他的诗就像在看一幅画，特别安静、特别美。</p>
+    <p>你知道吗？虽然你还没出来，但爸爸妈妈已经在'相思'了——想着你长什么样、像谁、以后会做什么。妈妈每天都在摸着肚子跟你说话，就是在把这份想念传递给你。</p>
+    <p>等你长大了，如果有人送你一颗红豆，你就知道——那是他在说：我想你了。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">第 009 篇 · 悯农</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`,
+9:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 009 篇</div><div class="dc-title">悯农</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 22 周 · 听觉唤醒期</div><div class="dc-time">朗读约 12 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天爸爸给你念一首你可能会经常听到的诗。以后你吃饭的时候，妈妈可能会念这首诗提醒你——要珍惜粮食哦。</p>
+    <p>这首诗写的是农民伯伯在田里辛苦干活的事。你认真听，爸爸讲给你听。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">悯 农</div>
+    <div class="poem-author">〔唐〕李 绅</div>
+    <div class="poem-body">锄禾日当午，<br>汗滴禾下土。<br>谁知盘中餐，<br>粒粒皆辛苦。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，每个字都念清楚</div>
+  </div>
+  <div class="explain-intro">好，爸爸念一遍，然后告诉你诗里在说什么——</div>
+  <div class="explain-line"><span class="verse">「锄禾日当午」</span><div class="desc">宝宝，大太阳挂在头顶上，中午最热的时候，有一个农民伯伯还在田里干活。他拿着锄头，一下一下地给庄稼松土。太阳好大好大，照得地上滚烫的。</div></div>
+  <div class="explain-line"><span class="verse">「汗滴禾下土」</span><div class="desc">他干了好久了，汗一滴一滴地往下掉，滴到庄稼下面的泥土里。你能想象那个画面吗？汗都滴到地里去了，说明有多热、多辛苦。</div></div>
+  <div class="explain-line"><span class="verse">「谁知盘中餐」</span><div class="desc">可是我们吃饭的时候，看着碗里白白的米饭，有几个人能想到这些呢？</div></div>
+  <div class="explain-line"><span class="verse">「粒粒皆辛苦」</span><div class="desc">碗里的每一粒米饭，都是农民伯伯辛辛苦苦种出来的。从播种、浇水、除草到收割，一粒米要经过好多好多的步骤才能到你的碗里。所以不能浪费哦。</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，这首诗虽然写的是种地的事，但它告诉我们一个道理：每一样东西都来之不易，要好好珍惜。</p>
+    <p>你现在住在妈妈肚子里，妈妈吃下去的每一口饭，都在变成营养传递给你。所以妈妈要好好吃饭，你也要好好吸收，对不对？</p>
+    <p>以后你长大了吃饭的时候，记得这首诗。吃多少盛多少，不浪费每一粒粮食。这是对农民伯伯最大的尊重。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">第 010 篇 · 写给未来的你</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`,
+10:`<div class="art-header">
+    <span class="art-moon">🌙</span>
+    <div class="art-brand">听见爸爸了</div>
+    <div class="art-sub">准爸爸睡前胎教故事</div>
+  </div>
+  <div class="day-card">
+    <div class="dc-left"><div class="dc-label">第 010 篇</div><div class="dc-title">写给未来的你</div></div>
+    <div class="dc-right"><div class="dc-tag">孕 23 周 · 听觉唤醒期</div><div class="dc-time">朗读约 15 分钟</div></div>
+  </div>
+  <div class="sec-say">🎙 爸爸说</div>
+  <div class="opening">
+    <p>宝宝，我是爸爸。</p>
+    <p>今天是我们一起度过的第十个夜晚了。十天了，你每天都在妈妈肚子里听爸爸说话。</p>
+    <p>今天爸爸想做一件特别的事——念一首关于妈妈和孩子的诗给你听，然后跟你说说爸爸妈妈的心里话。</p>
+    <p>这首诗叫《游子吟》，是一千多年前的一个诗人写的。他写的是一位妈妈给要出远门的孩子缝衣服的场景。</p>
+  </div>
+  <div class="dot-sep">···</div>
+  <div class="poem-sec">
+    <div class="poem-name">游 子 吟（节选）</div>
+    <div class="poem-author">〔唐〕孟 郊</div>
+    <div class="poem-body">慈母手中线，<br>游子身上衣。<br>临行密密缝，<br>意恐迟迟归。<br>谁言寸草心，<br>报得三春晖。</div>
+    <div class="poem-hint">👆 先慢慢念一遍，每个字都念清楚</div>
+  </div>
+  <div class="explain-intro">好，爸爸慢慢念——</div>
+  <div class="explain-line"><span class="verse">「慈母手中线」</span><div class="desc">一位慈祥的妈妈，手里拿着针和线。她在做什么呢？她在给孩子缝衣服。</div></div>
+  <div class="explain-line"><span class="verse">「游子身上衣」</span><div class="desc">她的孩子要出远门了，身上穿的衣服，是妈妈亲手缝的。</div></div>
+  <div class="explain-line"><span class="verse">「临行密密缝」</span><div class="desc">出发前一天晚上，妈妈还在缝。她一针一针缝得特别密、特别仔细。</div></div>
+  <div class="explain-line"><span class="verse">「意恐迟迟归」</span><div class="desc">为什么呢？因为她怕孩子很久很久才能回来。缝得结实一点，衣服就能穿得久一点。</div></div>
+  <div class="explain-line"><span class="verse">「谁言寸草心，报得三春晖」</span><div class="desc">最后两句是全诗最动人的——谁说小草的心意，能报答春天阳光的恩情呢？妈妈的爱就像春天的太阳，孩子的回报就像小草，怎么回报得了呢？</div></div>
+  <div class="dot-sep">···</div>
+  <div class="daddy-words">
+    <div class="dw-label">💬 爸爸的话</div>
+    <p>宝宝，今天是第十个夜晚了。这十天里，爸爸每天给你念一首诗或者一首歌，给你讲里面的故事。你可能听不太懂，但你一定感受到了——爸爸在陪着你。</p>
+    <p>你妈妈怀孕其实很辛苦。吃不下东西、睡不着觉、腰酸背痛，但她每天都在开心地摸着肚子跟你说话。她对你的爱，就像诗里写的那样——密密缝，一针一线都是爱。</p>
+    <p>爸爸妈妈不需要你以后有多大的出息，不要求你考第一名或者赚多少钱。我们只希望你健健康康的，快快乐乐的。你平安出生，就是给我们最好的礼物。</p>
+    <p>接下来的日子，爸爸会继续每天晚上给你念故事。等你听了一百篇的时候，你就能认出爸爸的声音了。</p>
+    <p>好了，今晚就到这里。第十天的晚安，送给最特别的你。</p>
+  </div>
+  <div class="closing">
+    <p>宝宝，今天的内容就到这里啦。</p>
+    <p>妈妈在旁边是不是也摸着肚子呢？<br>爸爸妈妈都在你身边。</p>
+    <div class="love">我们爱你，晚安 🌛</div>
+  </div>
+  <div class="preview"><div class="pv-label">📅 明日预告</div><div class="pv-title">未完待续 · 明天见</div></div>
+  <div class="art-foot"><p>听见爸爸了 · 准爸爸睡前胎教故事</p><p>每天 15 分钟，用声音陪伴你长大</p></div>`};
+
+// ══════ STATE ══════
+var currentTab = 'today';
+var currentReadDay = 0;
+var readHistory = {}; // {dayNum: true}
+
+function loadState() {
+  try {
+    var h = localStorage.getItem('tjbbl_read');
+    if (h) readHistory = JSON.parse(h);
+  } catch(e) { readHistory = {}; }
+}
+function saveState() {
+  try { localStorage.setItem('tjbbl_read', JSON.stringify(readHistory)); } catch(e) {}
+}
+function getStartDate() {
+  return localStorage.getItem('tjbbl_start');
+}
+function setStartDate(d) {
+  localStorage.setItem('tjbbl_start', d);
+}
+
+// ══════ CALCULATIONS ══════
+function calcDayNum() {
+  var sd = getStartDate();
+  if (!sd) return 0;
+  var start = new Date(sd);
+  var now = new Date();
+  now.setHours(0,0,0,0);
+  start.setHours(0,0,0,0);
+  var diff = Math.floor((now - start) / 86400000) + 1;
+  if (diff < 1) return 0;
+  if (diff > 140) return 140;
+  return diff;
+}
+function getReadCount() {
+  return Object.keys(readHistory).length;
+}
+function getStreak() {
+  var keys = Object.keys(readHistory).map(Number).sort(function(a,b){return a-b});
+  if (keys.length === 0) return 0;
+  var streak = 1;
+  for (var i = keys.length - 1; i > 0; i--) {
+    if (keys[i] - keys[i-1] === 1) streak++;
+    else break;
+  }
+  return streak;
+}
+function getWeek(dayNum) {
+  return 20 + Math.floor((dayNum - 1) / 7);
+}
+function getPlanByDay(d) {
+  for (var i = 0; i < PLAN.length; i++) {
+    if (PLAN[i].d === d) return PLAN[i];
+  }
+  return null;
+}
+
+// ══════ TAB SWITCHING ══════
+function switchTab(tab) {
+  currentTab = tab;
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+  document.getElementById('page-' + tab).classList.add('active');
+  var tabs = document.querySelectorAll('.tab-item');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove('active');
+    if (tabs[i].querySelector('span:last-child').textContent ===
+      (tab === 'today' ? '今天' : tab === 'catalog' ? '目录' : '我的')) {
+      tabs[i].classList.add('active');
+    }
+  }
+  if (tab === 'today') updateToday();
+  if (tab === 'catalog') updateCatalog();
+  if (tab === 'mine') updateMine();
+  document.getElementById('page-' + tab).scrollTop = 0;
+}
+
+// ══════ UPDATE TODAY ══════
+function updateToday() {
+  var dayNum = calcDayNum();
+  var readCount = getReadCount();
+  var pct = Math.round(readCount / 140 * 100);
+
+  document.getElementById('stat-day').textContent = dayNum || '-';
+  document.getElementById('stat-read').textContent = readCount;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = '已读 ' + readCount + ' 天 / 共 140 天';
+
+  if (!dayNum) {
+    document.getElementById('today-title').textContent = '请先设置开始日期';
+    document.getElementById('today-meta').textContent = '点击「我的」页面设置';
+    document.getElementById('today-btn').style.display = 'none';
+    document.getElementById('tomorrow-title').textContent = '-';
+    return;
+  }
+
+  var today = getPlanByDay(dayNum);
+  var tomorrow = getPlanByDay(dayNum + 1);
+  if (today) {
+    document.getElementById('today-title').textContent =
+      '第' + pad3(today.d) + '篇 · ' + today.t;
+    document.getElementById('today-meta').textContent =
+      '孕' + today.w + '周 · ' + today.y + ' · ' + today.m;
+    document.getElementById('today-btn').style.display = 'inline-block';
+    document.getElementById('today-btn').textContent =
+      readHistory[today.d] ? '✓ 已读 · 再读一遍' : '开始阅读 →';
+  }
+  if (tomorrow) {
+    document.getElementById('tomorrow-title').textContent =
+      '第' + pad3(tomorrow.d) + '篇 · ' + tomorrow.t;
+  } else {
+    document.getElementById('tomorrow-title').textContent = '已经全部读完啦 🎉';
+  }
+}
+
+// ══════ UPDATE CATALOG ══════
+function updateCatalog() {
+  var cc = document.getElementById('catalog-content');
+  if (cc.children.length > 0) {
+    // Just refresh check marks
+    refreshCatalogState();
+    return;
+  }
+
+  var phases = [
+    {name:'第一阶段 · 听觉唤醒期', range:'孕20-24周', from:1, to:35},
+    {name:'第二阶段 · 声音分辨期', range:'孕25-28周', from:36, to:63},
+    {name:'第三阶段 · 听觉记忆期', range:'孕29-35周', from:64, to:119},
+    {name:'第四阶段 · 迎接新生期', range:'孕36-40周', from:120, to:140},
+  ];
+  var dayNum = calcDayNum();
+  var html = '';
+  for (var p = 0; p < phases.length; p++) {
+    var ph = phases[p];
+    html += '<div class="phase-group"><div class="phase-title">' + ph.name + ' · ' + ph.range + '</div>';
+    for (var i = 0; i < PLAN.length; i++) {
+      var item = PLAN[i];
+      if (item.d < ph.from || item.d > ph.to) continue;
+      var isDone = !!readHistory[item.d];
+      var isToday = item.d === dayNum;
+      var available = item.h === 1;
+      var cls = 'cat-item' + (available ? ' available' : ' locked') + (isToday ? ' today-item' : '');
+      var checkCls = 'ci-check' + (isDone ? ' done' : '') + (isToday ? ' today' : '');
+      var lock = available ? '' : '<div class="ci-lock">🔒 即将上线</div>';
+      html += '<div class="' + cls + '" data-day="' + item.d + '" onclick="clickCatalog(' + item.d + ',' + (available?1:0) + ')">' +
+        '<div class="' + checkCls + '">' + (isDone ? '✓' : '') + '</div>' +
+        '<div class="ci-info"><span class="ci-num">' + pad3(item.d) + '</span>' +
+        '<span class="ci-name">' + item.t + '</span></div>' +
+        '<div class="ci-right"><div class="ci-week">孕' + item.w + '周</div>' + lock + '</div></div>';
+    }
+    html += '</div>';
+  }
+  cc.innerHTML = html;
+  // Scroll to today's item
+  setTimeout(function() {
+    var el = cc.querySelector('.today-item');
+    if (el) el.scrollIntoView({behavior:'smooth',block:'center'});
+  }, 200);
+}
+function refreshCatalogState() {
+  var dayNum = calcDayNum();
+  var items = document.querySelectorAll('.cat-item');
+  for (var i = 0; i < items.length; i++) {
+    var d = parseInt(items[i].getAttribute('data-day'));
+    var isDone = !!readHistory[d];
+    var isToday = d === dayNum;
+    var check = items[i].querySelector('.ci-check');
+    if (isDone) { check.classList.add('done'); check.textContent = '✓'; }
+    else { check.classList.remove('done'); check.textContent = ''; }
+    if (isToday) { check.classList.add('today'); items[i].classList.add('today-item'); }
+    else { check.classList.remove('today'); items[i].classList.remove('today-item'); }
+  }
+}
+
+// ══════ UPDATE MINE ══════
+function updateMine() {
+  var readCount = getReadCount();
+  var streak = getStreak();
+  var pct = Math.round(readCount / 140 * 100);
+  document.getElementById('mine-read').textContent = readCount;
+  document.getElementById('mine-streak').textContent = streak;
+  document.getElementById('mine-progress').style.width = pct + '%';
+
+  var sd = getStartDate();
+  document.getElementById('mine-start-date').textContent = sd || '未设置';
+
+  // History
+  var hEl = document.getElementById('mine-history');
+  var keys = Object.keys(readHistory).map(Number).sort(function(a,b){return b-a});
+  if (keys.length === 0) {
+    hEl.innerHTML = '<div class="ms-content">还没有开始阅读哦</div>';
+  } else {
+    var html = '';
+    var show = keys.slice(0, 20);
+    for (var i = 0; i < show.length; i++) {
+      var item = getPlanByDay(show[i]);
+      if (item) {
+        html += '<div class="history-item"><span class="hi-check">✓</span>' +
+          '<span class="hi-title">第' + pad3(item.d) + '篇 · ' + item.t + '</span></div>';
+      }
+    }
+    if (keys.length > 20) html += '<div class="ms-content" style="margin-top:8px;font-size:12px">还有 ' + (keys.length-20) + ' 条记录...</div>';
+    hEl.innerHTML = html;
+  }
+}
+
+// ══════ READING ══════
+function startReadToday() {
+  var dayNum = calcDayNum();
+  if (!dayNum) return;
+  openReadPage(dayNum);
+}
+function clickCatalog(d, available) {
+  if (!available) {
+    // Show a toast-like feedback
+    alert('这篇内容即将上线，敬请期待 🌙');
+    return;
+  }
+  openReadPage(d);
+}
+function openReadPage(d) {
+  currentReadDay = d;
+  var item = getPlanByDay(d);
+  if (!item) return;
+
+  document.getElementById('read-day-num').textContent = '第 ' + pad3(d) + ' 篇';
+
+  var body = document.getElementById('read-body');
+  if (ARTICLES[d]) {
+    body.innerHTML = '<div class="wrap">' + ARTICLES[d] + '</div>';
+  } else {
+    body.innerHTML = '<div class="wrap"><div class="placeholder-article">' +
+      '<div class="pa-emoji">🌙</div>' +
+      '<div class="pa-title">第' + pad3(d) + '篇 · ' + item.t + '</div>' +
+      '<div class="pa-meta">孕' + item.w + '周 · ' + item.y + ' · ' + item.m + '</div>' +
+      '<div class="pa-desc">这篇内容即将上线<br>敬请期待</div></div></div>';
+  }
+
+  // Done button state
+  var btn = document.getElementById('read-done-btn');
+  if (readHistory[d]) {
+    btn.textContent = '✓ 已读';
+    btn.classList.add('done');
+  } else {
+    btn.textContent = '✓ 我读完了';
+    btn.classList.remove('done');
+  }
+
+  // Nav buttons
+  var prev = document.getElementById('nav-prev');
+  var next = document.getElementById('nav-next');
+  if (d <= 1) { prev.classList.add('disabled'); } else { prev.classList.remove('disabled'); }
+  if (d >= 140) { next.classList.add('disabled'); } else { next.classList.remove('disabled'); }
+
+  document.getElementById('read-page').classList.add('active');
+  document.getElementById('tab-bar').classList.add('hidden');
+  body.scrollTop = 0;
+}
+function exitRead() {
+  document.getElementById('read-page').classList.remove('active');
+  document.getElementById('tab-bar').classList.remove('hidden');
+  // Refresh current tab
+  switchTab(currentTab);
+}
+function markDone() {
+  if (currentReadDay && !readHistory[currentReadDay]) {
+    readHistory[currentReadDay] = true;
+    saveState();
+    var btn = document.getElementById('read-done-btn');
+    btn.textContent = '✓ 已读';
+    btn.classList.add('done');
+    // Small celebration
+    btn.textContent = '✓ 太棒了！';
+    setTimeout(function(){ btn.textContent = '✓ 已读'; }, 1200);
+  }
+}
+function navPrev() {
+  if (currentReadDay > 1) openReadPage(currentReadDay - 1);
+}
+function navNext() {
+  if (currentReadDay < 140) openReadPage(currentReadDay + 1);
+}
+
+// ══════ SWIPE ══════
+(function(){
+  var startX = 0, startY = 0;
+  var rb = document.getElementById('read-body');
+  rb.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, {passive:true});
+  rb.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - startX;
+    var dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx < 0) navNext();
+      else navPrev();
+    }
+  }, {passive:true});
+})();
+
+// ══════ DATE MODAL ══════
+function showDateModal() {
+  var sd = getStartDate();
+  document.getElementById('date-input').value = sd || '';
+  document.getElementById('date-modal').classList.add('active');
+}
+function saveStartDate() {
+  var v = document.getElementById('date-input').value;
+  if (!v) { alert('请选择日期'); return; }
+  setStartDate(v);
+  document.getElementById('date-modal').classList.remove('active');
+  updateMine();
+  updateToday();
+}
+
+// ══════ SHARE MODAL ══════
+function showShareModal() {
+  var readCount = getReadCount();
+  var dayNum = calcDayNum();
+  var todayItem = getPlanByDay(dayNum);
+  var title = todayItem ? todayItem.t : '';
+  var text = '我正在和宝宝一起听爸爸读《' + title + '》，已经坚持了' + readCount + '天！你也来试试吧，每天15分钟，用声音陪伴宝宝成长 🌙';
+  document.getElementById('share-text').textContent = text;
+  document.getElementById('share-copy-btn').textContent = '📋 复制分享文案';
+  document.getElementById('share-modal').classList.add('active');
+}
+function copyShareText() {
+  var text = document.getElementById('share-text').textContent;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      document.getElementById('share-copy-btn').textContent = ' 已复制！去分享吧';
+      setTimeout(function() { document.getElementById('share-copy-btn').textContent = '📋 复制分享文案'; }, 2000);
+    }).catch(function() { fallbackCopy(text); });
+  } else { fallbackCopy(text); }
+}
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea'); ta.value = text;
+  ta.style.cssText = 'position:fixed;left:-9999px'; document.body.appendChild(ta);
+  ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+  document.getElementById('share-copy-btn').textContent = ' 已复制！去分享吧';
+  setTimeout(function() { document.getElementById('share-copy-btn').textContent = '📋 复制分享文案'; }, 2000);
+}
+function closeShareModal() {
+  document.getElementById('share-modal').classList.remove('active');
+}
+
+// ══════ SETUP ══════
+function showSetupModal() {
+  document.getElementById('setup-modal').classList.add('active');
+}
+function saveSetupDate() {
+  var v = document.getElementById('setup-date-input').value;
+  if (!v) { alert('请选择日期'); return; }
+  setStartDate(v);
+  document.getElementById('setup-modal').classList.remove('active');
+  updateToday();
+}
+
+// ══════ HELPERS ══════
+function pad3(n) {
+  return n < 10 ? '00' + n : n < 100 ? '0' + n : '' + n;
+}
+
+// ══════ INIT ══════
+function init() {
+  loadState();
+  if (!getStartDate()) {
+    showSetupModal();
+  }
+  updateToday();
+  // Set date input defaults
+  var today = new Date();
+  var ds = today.getFullYear() + '-' + pad2(today.getMonth()+1) + '-' + pad2(today.getDate());
+  document.getElementById('setup-date-input').value = ds;
+  document.getElementById('date-input').value = getStartDate() || ds;
+}
+function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+init();
+
+// ══════ TIPS SYSTEM ══════
+var TIPS = [
+  '音量保持正常说话大小就好，不需要刻意大声。胎儿能听到你说话的低频声音。',
+  '爸爸的低频声音与子宫内环境音最接近，是天然的胎教"乐器"。',
+  '每天固定时间朗读，帮助宝宝建立生物钟。推荐晚上20:00-21:00。',
+  '朗读时语速放慢，声音温柔低沉，就像在跟宝宝说悄悄话。',
+  '妈妈摸着肚子配合，宝宝会感受到双重安全感。',
+  '不要贴着肚子放音乐或手机，保持30cm以上距离。',
+  '如果妈妈累了或烦躁，可以暂停。状态好时效果更佳。',
+  '研究发现：重复7次以上的声音模式会转入胎儿长期记忆。',
+  '孕23周胎儿对低频声音最敏感，恰好是爸爸说话的频率范围。',
+  '宝宝出生后，你的声音比任何人都能安抚他。',
+  '朗读古诗时，先完整念一遍，再逐句解释给宝宝听。',
+  '每次朗读15-20分钟为宜，单次不超过30分钟。',
+  '爸爸每天对胎儿说话20分钟，宝宝出生后对男性声音识别速度提升40%。',
+  '孕最后10周的反复声音刺激会形成"记忆痕迹"，影响出生后神经系统。',
+  '持续接受听觉刺激的胎儿，36月龄语言表达指数显著高于对照组。',
+  '古诗天然有韵律，非常适合早期听觉唤醒。',
+  '宝宝在子宫内能区分不同语言的节奏模式，中文古诗声调变化丰富。',
+  '声音刺激后胎儿体内BDNF水平上升——这是神经可塑性增强的标志。',
+  '新生儿能识别母亲声音、母语，以及孕最后10周反复听过的音乐。',
+  '38周胎儿对父母双方声音均有心率反应，说明他们真的认识你。',
+];
+function showTip() {
+  var dayNum = calcDayNum();
+  if (!dayNum) return;
+  var idx = (dayNum - 1) % TIPS.length;
+  var tipCard = document.getElementById('tip-card');
+  var tipText = document.getElementById('tip-text');
+  if (tipCard && tipText) {
+    tipText.textContent = TIPS[idx];
+    tipCard.style.display = 'block';
+  }
+}
+showTip();
+</script>
+</body>
+</html>
